@@ -18,7 +18,6 @@ The Job Application Form App is a web-based application that allows users to sub
 - SQLite
 
 ## Installation
-
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/job-application-form.git
@@ -28,8 +27,6 @@ The Job Application Form App is a web-based application that allows users to sub
   python -m venv venv
   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
-2.  Create a virtual environment:
-  ```bash
 3.  Install the required packages:
   ```bash
   pip install -r requirements.txt
