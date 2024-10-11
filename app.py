@@ -1,13 +1,23 @@
 from datetime import datetime
 from flask import Flask, render_template, request, flash #request handles data sent by the client.
 from flask_sqlalchemy import SQLAlchemy #SQLAlchemy is a Flask extension to interact with databases
+from flask_mail import Mail, Message
 
 #If you run the file directly, __name__ will be "__main__".
 #If you import this file as a module into another script, __name__ will be the module’s name.
 app = Flask(__name__) #Using __name__ helps Flask know where to find your HTML and other files, so your app can display web pages properly.
 app.config["SECRET_KEY"] = "myapplication123" #Helps with security. Hackers will need this key to hack. It is kept private.
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db" #Configures the app to use a SQLite database stored in a file called data.db.
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
+app.config["MAIL_USE_SSL"] = True
+app.config["MAIL_PORT"] = 465
+app.config["MAIL_USERNAME"] = "armanulhaq10@gmail.com"
+app.config["MAIL_PASSWORD"] = "xapnqshqvwzhdnyw"
+
 db = SQLAlchemy(app) #Links the Flask app to the SQLAlchemy database
+
+mail = Mail(app)
+
 
 class Form(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -32,6 +42,13 @@ def index():
         form = Form(first_name=first_name, last_name=last_name, email=email, occupation=occupation, date=date_obj) #date accepts date type so we need conversion
         db.session.add(form)
         db.session.commit()
+
+        message_body = f"Thank you for your submission, {first_name}. \n " \
+                       f"Here is your data: {first_name}\n{last_name}\n Date: {date}\n" \
+                       "Thank You!"
+        message = Message(subject="New form submission", sender=app.config["MAIL_USERNAME"], recipients=[email], body=message_body)
+        mail.send(message)
+
         flash(f"{first_name}, your form was submitted successfully", "success")
 
 
