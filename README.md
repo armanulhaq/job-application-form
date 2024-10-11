@@ -27,14 +27,20 @@ The Job Application Form App is a web-based application that allows users to sub
   ```bash
   python -m venv venv
   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
+2.  Create a virtual environment:
+  ```bash
 3.  Install the required packages:
   ```bash
   pip install -r requirements.txt
+  ```
 4.  Set up your Gmail credentials in the app configuration (app.py):
-  ``bash
+  ```bash
   app.config["MAIL_USERNAME"] = "your_email@gmail.com"
   app.config["MAIL_PASSWORD"] = "your_password"
+  ```
 5. Run the application:
   ```bash
   python app.py
+  ```
 
